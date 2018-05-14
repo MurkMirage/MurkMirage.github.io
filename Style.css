@@ -33,10 +33,6 @@
 		height:  30%;
 	}
 
-	#img:hover, #img:active {
-		width: 50%;
-	}
-
 	#imgR {
 		Float: Right;
 		width: 60%;
