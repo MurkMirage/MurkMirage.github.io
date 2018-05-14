@@ -27,6 +27,9 @@
 	#img {
 		height:  30%;
 	}
+	#img:hover {
+		height:  60%;
+	}
 	#imgR {
 		Float: Right;
 		width: 60%;
