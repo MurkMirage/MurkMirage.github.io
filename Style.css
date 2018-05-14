@@ -1,3 +1,8 @@
+@keyframes hover {
+	from {width: 30%;}
+	to   {width: 60%;}
+	}
+
 	body {
 			background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkxTyUG9JUHoDh18JLZFZPzhTn-oIpyFi0CaIvWunURma_hT8M);
 			
@@ -28,7 +33,8 @@
 		height:  30%;
 	}
 	#img:hover, #img:active {
-		height:  60%;
+		animation-name: hover;
+		animation-duration: 3s;
 	}
 	#imgR {
 		Float: Right;
