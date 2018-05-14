@@ -1,0 +1,492 @@
+<html><head>
+<title>Gadgets</title>
+<style>
+	body,div,p,a,td,input {
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 10pt;
+		background-color: #3d1b8e;
+	}
+	h1 {
+		font-size: 14pt;
+		text-align: center;
+		color:white;
+	}
+	h2 {
+		font-size: 12pt;
+		text-align: center;
+		color:white;
+	}
+	#footer {
+		font-size: 8pt;
+		text-align: center;
+		padding: 0 10 10 10
+	}
+	#salt_status {
+		color: #050044;
+		font-size: 8pt;
+		text-align: left
+	}
+	#passcode_status {
+		color: Red;
+		font-size: 8pt;
+		text-align: left
+	}
+	#status {
+		background-color: #C1C1FF;
+		padding: 10 10 10 10;
+	}
+	#password, #passend {
+		opacity: 0%;
+	}
+	#pagebox {
+		margin: 2% 5%;
+		background-color: #050044;
+		border-radius: 25px;
+		Border: double #7063ff 5px;
+	}
+	#content {
+		margin: 2% 5%;
+		background-color: #050044;
+	}
+	table,tbody,tr,td,input,a {
+		background-color: #050044;
+		color:white;
+	}
+	#status,input,button,p {
+		Border: double #7063ff 3px;
+		Border-radius: 10px;
+		Margin: 2px;
+		color:white;
+	}
+	input,button {
+		background-color:#070059;
+		
+	}
+	#key,#salt,#password,#passend,p {
+		padding: 1px 4px;
+	}
+	#myfilter {
+		background-color:rgb(0, 0, 0); opacity: 0.3;
+		transform: translate(0px,180px);
+	}
+	#myrestartbutton {
+		
+	}
+</style>
+</head>
+<body>
+<div id="pagebox">
+<div id="content">
+<h1>
+Password Cracker
+</h1>
+
+<div></div>
+<form name="pbkdf2form">
+	<table>
+		<tbody>
+			<tr>
+				<td>PasswordKey:</td>
+				<td colspan="2">
+					<input id="key" type="text" size="33">
+				</td>
+			</tr>
+			<tr>
+				<td>PasswordSalt:</td>
+				<td>
+					<input id="salt" type="text" size="14">
+				</td>
+				<td id="salt_status"></td>
+			</tr>
+			<tr>
+				<td>Start:</td>
+				<td>
+					<input id="password" value="0000" type="text" size="14">
+				</td>
+				<td id="passcode_status"></td>
+				<td>Last Search:</td>
+				<td>
+					<input id="passend" value="9999" type="text" size="11">
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input type="button" value="Test 1" onclick="test_code()">
+				</td>
+				<td>
+					<input type="button" value="Search" onclick="find_code()">
+				</td>
+				<td></td>
+				<td>
+					<input type="button" value="Stop" onclick="stop_searching()">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<div id="status" style="background-color: rgb(8, 0, 128);">
+<b>0000</b> + <b></b> = <b></b>
+ </div>
+
+<table float="left">
+	<tr>
+		<td class="head"><Button onclick="getLocation()">Get Longitude & Latitude Coordinates</Button></td>
+		<td class="head"></td>
+	</tr>
+	<tr>
+		<td><p id="Lat">Latitude: </p></td>
+		<td><p id="Long">Longitude: </p></td>
+		
+	</tr>
+</table>
+<script>
+var x = document.getElementById("Lat");
+var y = document.getElementById("Long")
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude;
+    y.innerHTML = "Longitude: " + position.coords.longitude; 
+}
+</script>
+
+
+
+<script>
+function main_func()
+{
+/*
+   CryptoJS v3.1.2
+   code.google.com/p/crypto-js
+   (c) 2009-2013 by Jeff Mott. All rights reserved.
+   code.google.com/p/crypto-js/wiki/License
+   */
+   var CryptoJS=CryptoJS||function(g,j){var e={},d=e.lib={},m=function(){},n=d.Base={extend:function(a){m.prototype=this;var c=new m;a&&c.mixIn(a);c.hasOwnProperty("init")||(c.init=function(){c.$super.init.apply(this,arguments)});c.init.prototype=c;c.$super=this;return c},create:function(){var a=this.extend();a.init.apply(a,arguments);return a},init:function(){},mixIn:function(a){for(var c in a)a.hasOwnProperty(c)&&(this[c]=a[c]);a.hasOwnProperty("toString")&&(this.toString=a.toString)},clone:function(){return this.init.prototype.extend(this)}},
+   q=d.WordArray=n.extend({init:function(a,c){a=this.words=a||[];this.sigBytes=c!=j?c:4*a.length},toString:function(a){return(a||l).stringify(this)},concat:function(a){var c=this.words,p=a.words,f=this.sigBytes;a=a.sigBytes;this.clamp();if(f%4)for(var b=0;b<a;b++)c[f+b>>>2]|=(p[b>>>2]>>>24-8*(b%4)&255)<<24-8*((f+b)%4);else if(65535<p.length)for(b=0;b<a;b+=4)c[f+b>>>2]=p[b>>>2];else c.push.apply(c,p);this.sigBytes+=a;return this},clamp:function(){var a=this.words,c=this.sigBytes;a[c>>>2]&=4294967295<<
+   32-8*(c%4);a.length=g.ceil(c/4)},clone:function(){var a=n.clone.call(this);a.words=this.words.slice(0);return a},random:function(a){for(var c=[],b=0;b<a;b+=4)c.push(4294967296*g.random()|0);return new q.init(c,a)}}),b=e.enc={},l=b.Hex={stringify:function(a){var c=a.words;a=a.sigBytes;for(var b=[],f=0;f<a;f++){var d=c[f>>>2]>>>24-8*(f%4)&255;b.push((d>>>4).toString(16));b.push((d&15).toString(16))}return b.join("")},parse:function(a){for(var c=a.length,b=[],f=0;f<c;f+=2)b[f>>>3]|=parseInt(a.substr(f,
+   2),16)<<24-4*(f%8);return new q.init(b,c/2)}},k=b.Latin1={stringify:function(a){var c=a.words;a=a.sigBytes;for(var b=[],f=0;f<a;f++)b.push(String.fromCharCode(c[f>>>2]>>>24-8*(f%4)&255));return b.join("")},parse:function(a){for(var c=a.length,b=[],f=0;f<c;f++)b[f>>>2]|=(a.charCodeAt(f)&255)<<24-8*(f%4);return new q.init(b,c)}},h=b.Utf8={stringify:function(a){try{return decodeURIComponent(escape(k.stringify(a)))}catch(b){throw Error("Malformed UTF-8 data");}},parse:function(a){return k.parse(unescape(encodeURIComponent(a)))}},
+   u=d.BufferedBlockAlgorithm=n.extend({reset:function(){this._data=new q.init;this._nDataBytes=0},_append:function(a){"string"==typeof a&&(a=h.parse(a));this._data.concat(a);this._nDataBytes+=a.sigBytes},_process:function(a){var b=this._data,d=b.words,f=b.sigBytes,l=this.blockSize,e=f/(4*l),e=a?g.ceil(e):g.max((e|0)-this._minBufferSize,0);a=e*l;f=g.min(4*a,f);if(a){for(var h=0;h<a;h+=l)this._doProcessBlock(d,h);h=d.splice(0,a);b.sigBytes-=f}return new q.init(h,f)},clone:function(){var a=n.clone.call(this);
+   a._data=this._data.clone();return a},_minBufferSize:0});d.Hasher=u.extend({cfg:n.extend(),init:function(a){this.cfg=this.cfg.extend(a);this.reset()},reset:function(){u.reset.call(this);this._doReset()},update:function(a){this._append(a);this._process();return this},finalize:function(a){a&&this._append(a);return this._doFinalize()},blockSize:16,_createHelper:function(a){return function(b,d){return(new a.init(d)).finalize(b)}},_createHmacHelper:function(a){return function(b,d){return(new w.HMAC.init(a,
+   d)).finalize(b)}}});var w=e.algo={};return e}(Math);
+   (function(){var g=CryptoJS,j=g.lib,e=j.WordArray,d=j.Hasher,m=[],j=g.algo.SHA1=d.extend({_doReset:function(){this._hash=new e.init([1732584193,4023233417,2562383102,271733878,3285377520])},_doProcessBlock:function(d,e){for(var b=this._hash.words,l=b[0],k=b[1],h=b[2],g=b[3],j=b[4],a=0;80>a;a++){if(16>a)m[a]=d[e+a]|0;else{var c=m[a-3]^m[a-8]^m[a-14]^m[a-16];m[a]=c<<1|c>>>31}c=(l<<5|l>>>27)+j+m[a];c=20>a?c+((k&h|~k&g)+1518500249):40>a?c+((k^h^g)+1859775393):60>a?c+((k&h|k&g|h&g)-1894007588):c+((k^h^
+   g)-899497514);j=g;g=h;h=k<<30|k>>>2;k=l;l=c}b[0]=b[0]+l|0;b[1]=b[1]+k|0;b[2]=b[2]+h|0;b[3]=b[3]+g|0;b[4]=b[4]+j|0},_doFinalize:function(){var d=this._data,e=d.words,b=8*this._nDataBytes,l=8*d.sigBytes;e[l>>>5]|=128<<24-l%32;e[(l+64>>>9<<4)+14]=Math.floor(b/4294967296);e[(l+64>>>9<<4)+15]=b;d.sigBytes=4*e.length;this._process();return this._hash},clone:function(){var e=d.clone.call(this);e._hash=this._hash.clone();return e}});g.SHA1=d._createHelper(j);g.HmacSHA1=d._createHmacHelper(j)})();
+   (function(){var g=CryptoJS,j=g.enc.Utf8;g.algo.HMAC=g.lib.Base.extend({init:function(e,d){e=this._hasher=new e.init;"string"==typeof d&&(d=j.parse(d));var g=e.blockSize,n=4*g;d.sigBytes>n&&(d=e.finalize(d));d.clamp();for(var q=this._oKey=d.clone(),b=this._iKey=d.clone(),l=q.words,k=b.words,h=0;h<g;h++)l[h]^=1549556828,k[h]^=909522486;q.sigBytes=b.sigBytes=n;this.reset()},reset:function(){var e=this._hasher;e.reset();e.update(this._iKey)},update:function(e){this._hasher.update(e);return this},finalize:function(e){var d=
+   this._hasher;e=d.finalize(e);d.reset();return d.finalize(this._oKey.clone().concat(e))}})})();
+   (function(){var g=CryptoJS,j=g.lib,e=j.Base,d=j.WordArray,j=g.algo,m=j.HMAC,n=j.PBKDF2=e.extend({cfg:e.extend({keySize:4,hasher:j.SHA1,iterations:1}),init:function(d){this.cfg=this.cfg.extend(d)},compute:function(e,b){for(var g=this.cfg,k=m.create(g.hasher,e),h=d.create(),j=d.create([1]),n=h.words,a=j.words,c=g.keySize,g=g.iterations;n.length<c;){var p=k.update(b).finalize(j);k.reset();for(var f=p.words,v=f.length,s=p,t=1;t<g;t++){s=k.finalize(s);k.reset();for(var x=s.words,r=0;r<v;r++)f[r]^=x[r]}h.concat(p);
+   a[0]++}h.sigBytes=4*c;return h}});g.PBKDF2=function(d,b,e){return n.create(e).compute(d,b)}})();
+   (function(){var h=CryptoJS,i=h.lib.WordArray;h.enc.Base64={stringify:function(b){var e=b.words,f=b.sigBytes,c=this._map;b.clamp();for(var b=[],a=0;a<f;a+=3)for(var d=(e[a>>>2]>>>24-8*(a%4)&255)<<16|(e[a+1>>>2]>>>24-8*((a+1)%4)&255)<<8|e[a+2>>>2]>>>24-8*((a+2)%4)&255,g=0;4>g&&a+0.75*g<f;g++)b.push(c.charAt(d>>>6*(3-g)&63));if(e=c.charAt(64))for(;b.length%4;)b.push(e);return b.join("")},parse:function(b){var b=b.replace(/\s/g,""),e=b.length,f=this._map,c=f.charAt(64);c&&(c=b.indexOf(c),-1!=c&&(e=c));
+   for(var c=[],a=0,d=0;d<e;d++)if(d%4){var g=f.indexOf(b.charAt(d-1))<<2*(d%4),h=f.indexOf(b.charAt(d))>>>6-2*(d%4);c[a>>>2]|=(g|h)<<24-8*(a%4);a++}return i.create(c,a)},_map:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="}})();
+
+   var key = CryptoJS.enc.Base64.parse(document.pbkdf2form.key.value).toString();
+   var salt = document.pbkdf2form.salt.value;
+   var i = document.pbkdf2form.password.value;
+   var stopnow=0;
+   var end = ("0000" + document.pbkdf2form.passend.value).slice(-4);
+   var this_object=this;
+
+	// Sanity checks
+	 function sanity_check()
+	 {
+	 	 i=document.pbkdf2form.password.value;
+	 	 var valid=1;
+	 	 document.getElementById("passcode_status").innerHTML = "";
+	 	 document.getElementById("salt_status").innerHTML = "";
+	 	 if (isNaN(i) || i<0 || i>9999) 
+	 	 {
+	 	   document.getElementById("passcode_status").innerHTML = "invalid";
+	 	   valid=0;
+	 	 }
+	 	 if (!document.pbkdf2form.salt.value) {
+	 	   document.getElementById("salt_status").innerHTML = "invalid";
+	 	   valid=0;
+	 	 }
+	 	 if (valid==0)
+	 	 {
+	 	 	 document.getElementById("status").style.backgroundColor="green";
+	 	 	 display_message("You can use this however you like, but there should be a valid Salt<br>and the Starting Passcode should be between 0000 and 9999");
+	 	 }
+	 }
+
+   function display_message(msg) { document.getElementById("status").innerHTML = msg; }
+
+   this.try_code = function()
+   {
+      var code = CryptoJS.PBKDF2(pass, CryptoJS.enc.Base64.parse(salt), {keySize: 5, iterations: 1000});
+      display_message("<b>"+pass+"</b> + <b>"+salt+"</b> = <b>"+code.toString(CryptoJS.enc.Base64)+"</B>"); 
+    //alert("pass:"+pass+"  end:"+end+"   key:"+key+"   code:"+code+"   stopnow:"+stopnow);
+      if (code.toString()==key) { 
+        display_message("<b>"+pass+"</b> + <b>"+salt+"</b> = <b>"+code.toString(CryptoJS.enc.Base64)+"</B>"); 
+        document.getElementById("status").style.backgroundColor="green";
+        alert("The passcode is: " + pass);
+      } else if (pass.toString()==end.toString() || stopnow==1) {
+        display_message("<b>"+pass+"</b> + <b>"+salt+"</b> = <b>"+code.toString(CryptoJS.enc.Base64)+"</B>"); 
+      } else {  //try again
+         i++;
+         pass = ("0000" + i).slice(-4);
+         document.pbkdf2form.password.value = pass;
+         setTimeout(function() { this_object.try_code(); }, 0);
+      }
+   }
+   
+   this.stop_code = function()
+   { 
+     stopnow=1;
+     document.getElementById("passcode_status").innerHTML = "";
+	 	 document.getElementById("salt_status").innerHTML = "";
+   }   
+
+   this.startnow = function()
+   {
+      sanity_check();
+      i=document.pbkdf2form.password.value;
+      pass = ("0000" + i).slice(-4);
+      end = ("0000" + document.pbkdf2form.passend.value).slice(-4);
+      salt = document.pbkdf2form.salt.value;
+      key = CryptoJS.enc.Base64.parse(document.pbkdf2form.key.value).toString();
+      stopnow=0;
+      document.getElementById("status").style.backgroundColor="#050044";
+      setTimeout(function() { this_object.try_code(); }, 0);
+   }
+   
+   this.tryone = function()
+   {
+   	  sanity_check();
+      i=document.pbkdf2form.password.value;
+      pass = i;
+      end = ("0000" + i).slice(-4);
+      salt = document.pbkdf2form.salt.value;
+      key = CryptoJS.enc.Base64.parse(document.pbkdf2form.key.value).toString();
+      stopnow=1;
+      document.getElementById("status").style.backgroundColor="#050044";
+      setTimeout(function() { this_object.try_code(); }, 0);
+   }
+}
+
+var myfunc = new main_func();
+function find_code(){ myfunc.startnow(); }
+function stop_searching(){ myfunc.stop_code(); }
+function test_code(){ myfunc.tryone(); }
+</script>
+
+<table>
+	<tr>
+		<td class="head">Time Till Date Calculator</td>
+		<td class="head"></td>
+	</tr>
+	<tr>
+		<td>Date 1</td>
+		<td><input type="date" class="textbox" id="pick_date" name="pickup_date" onchange="cal()"></td>
+	</tr>
+	<tr>
+		<td>Date 2</td>
+		<td><input type="date" class="textbox" id="drop_date" name="dropoff_date" onchange="cal()"/></td>
+	</tr>
+	<tr>
+		<td>Time Between Dates</td>
+		<td><input type="text" class="textbox" id="numdays2" name="numdays"/></td>
+	</tr>
+</table>
+
+<script>
+function GetDays(){
+                var dropdt = new Date(document.getElementById("drop_date").value);
+                var pickdt = new Date(document.getElementById("pick_date").value);
+                return parseInt((dropdt - pickdt) / (24 * 3600 * 1000));
+        }
+
+        function cal(){
+        if(document.getElementById("drop_date")){
+            document.getElementById("numdays2").value=GetDays();
+        }  
+    }
+</script>
+<p>Push the buttons to move the red square:</p>
+<div id="myfilter" style="position: absolute; background-color: rgb(0, 0, 0); opacity: 0.3; width: 322px; height: 182px; display: block;"></div>
+<div id="myrestartbutton" style="position: absolute; padding-top: 75px; padding-left: 120px; display: block;">
+<button style="opacity:1;" onclick="restartGame()">Restart</button></div>
+<div id="canvascontainer"><canvas width="100%" height="0"></canvas></div>
+<br>
+<div style="text-align:center;width:320px;">
+  <button ontouchstart="moveup()" onmousedown="moveup()" onmouseup="clearmove()">UP</button><br><br>
+  <button ontouchstart="moveleft()" onmousedown="moveleft()" onmouseup="clearmove()">LEFT</button>
+  <button ontouchstart="moveright()" onmousedown="moveright()" onmouseup="clearmove()">RIGHT</button><br><br>
+  <button ontouchstart="movedown()" onmousedown="movedown()" onmouseup="clearmove()">DOWN</button>
+</div>
+<br>
+
+<script>
+
+var myGameArea;
+var myGamePiece;
+var myObstacles = [];
+var myscore;
+
+function restartGame() {
+document.getElementById("myfilter").style.display = "none";
+document.getElementById("myrestartbutton").style.display = "none";
+myGameArea.stop();
+myGameArea.clear();
+myGameArea = {};
+myGamePiece = {};
+myObstacles = [];
+myscore = {};
+document.getElementById("canvascontainer").innerHTML = "";
+startGame()
+}
+
+function startGame() {
+	document.getElementById("myfilter").style.display = "none";
+	document.getElementById("myrestartbutton").style.display = "none";
+    myGameArea = new gamearea();
+    myGamePiece = new component(30, 30, "red", 10, 75);
+    myscore = new component("15px", "Consolas", "black", 220, 25, "text");
+    myGameArea.start();
+}
+
+function gamearea() {
+    this.canvas = document.createElement("canvas");
+    this.canvas.width = 1000;
+    this.canvas.height = 180;    
+    document.getElementById("canvascontainer").appendChild(this.canvas);
+    this.context = this.canvas.getContext("2d");
+    this.pause = false;
+    this.frameNo = 0;
+    this.start = function() {
+        this.interval = setInterval(updateGameArea, 20);
+		window.addEventListener('keydown', function (e) {
+            myGameArea.key = e.keyCode;
+        })
+        window.addEventListener('keyup', function (e) {
+            myGameArea.key = false;
+        })
+    }
+	
+    this.stop = function() {
+        clearInterval(this.interval);
+        this.pause = true;
+    }
+    this.clear = function(){
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function component(width, height, color, x, y, type) {
+
+    this.type = type;
+    if (type == "text") {
+        this.text = color;
+    }
+    this.score = 0;    this.width = width;
+    this.height = height;
+    this.speedX = 0;
+    this.speedY = 0;    
+    this.x = x;
+    this.y = y;    
+    this.update = function() {
+        ctx = myGameArea.context;
+        if (this.type == "text") {
+            ctx.font = this.width + " " + this.height;
+            ctx.fillStyle = color;
+            ctx.fillText(this.text, this.x, this.y);
+        } else {
+            ctx.fillStyle = color;
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
+    this.crashWith = function(otherobj) {
+        var myleft = this.x;
+        var myright = this.x + (this.width);
+        var mytop = this.y;
+        var mybottom = this.y + (this.height);
+        var otherleft = otherobj.x;
+        var otherright = otherobj.x + (otherobj.width);
+        var othertop = otherobj.y;
+        var otherbottom = otherobj.y + (otherobj.height);
+        var crash = true;
+        if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+            crash = false;
+        }
+        return crash;
+    }
+}
+
+
+function updateGameArea() {
+    var x, y, min, max, height, gap;
+    for (i = 0; i < myObstacles.length; i += 1) {
+        if (myGamePiece.crashWith(myObstacles[i])) {
+            myGameArea.stop();
+            document.getElementById("myfilter").style.display = "block";
+            document.getElementById("myrestartbutton").style.display = "block";
+            return;
+        } 
+    }
+    if (myGameArea.pause == false) {
+        myGameArea.clear();
+        myGameArea.frameNo += 1;
+        myscore.score +=1;        
+        if (myGameArea.frameNo == 1 || everyinterval(150)) {
+            x = myGameArea.canvas.width;
+            y = myGameArea.canvas.height - 100;
+            min = 20;
+            max = 100;
+            height = Math.floor(Math.random()*(max-min+1)+min);
+            min = 50;
+            max = 100;
+            gap = Math.floor(Math.random()*(max-min+1)+min);
+            myObstacles.push(new component(10, height, "green", x, 0));
+            myObstacles.push(new component(10, x - height - gap, "green", x, height + gap));
+        }
+        for (i = 0; i < myObstacles.length; i += 1) {
+            myObstacles[i].x += -1;
+            myObstacles[i].update();
+        }
+        myscore.text="SCORE: " + myscore.score;        
+        myscore.update();
+        myGamePiece.x += myGamePiece.speedX;
+        myGamePiece.y += myGamePiece.speedY;    
+        myGamePiece.update();
+    }
+}
+
+function everyinterval(n) {
+    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
+    return false;
+}
+
+function moveup(e) {
+    myGamePiece.speedY = -1; 
+}
+
+function movedown() {
+    myGamePiece.speedY = 1; 
+}
+
+function moveleft() {
+    myGamePiece.speedX = -1; 
+}
+
+function moveright() {
+    myGamePiece.speedX = 1; 
+}
+
+function clearmove(e) {
+    myGamePiece.speedX = 0; 
+    myGamePiece.speedY = 0; 
+}
+startGame();
+
+</script>
+
+
+<a href="https://nyc3.digitaloceanspaces.com/tweakbox/TweakBox.mobileconfig" class="btn btn-fill clearfix"><button>Download Tweakbox Jailbreak (IOS ONLY)</button></a>
+
+</div>
+</div>
+</body></html>
