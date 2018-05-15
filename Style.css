@@ -28,6 +28,10 @@
 		border: solid Navy 1px;
 		width: 100%;
 	}
+   #box {
+      width: 30%;
+      height: auto;
+   }
 
 	#img {
 	  	width:  30%;
