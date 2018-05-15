@@ -30,15 +30,15 @@
 	}
    #box {
       width: 30%;
-      height: auto;
+      height: 300px;
       float: left;
       overflow: hidden;
       Margin: 2px;
    }
 
 	#img {
-	  	width:  auto;
-     height: 100%;
+	  	width:  100%;
+     height: auto;
      
 	}
 
