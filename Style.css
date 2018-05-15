@@ -1,8 +1,8 @@
 
 	body {
-			background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkxTyUG9JUHoDh18JLZFZPzhTn-oIpyFi0CaIvWunURma_hT8M);
+		background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkxTyUG9JUHoDh18JLZFZPzhTn-oIpyFi0CaIvWunURma_hT8M);
 			
-		}
+	}
 
 	#pagebox {
 		Margin: 0% 5%;
@@ -29,19 +29,19 @@
 		border: solid Navy 1px;
 		width: 100%;
 	}
-   #box {
-      Float: Left;
+  	#box {
+      		Float: Left;
 		width: 200px;
-      height: 200px;
+      		height: 200px;
 		Margin: 3px;
 		border: solid Navy 3px;
 		border-radius: 15px;
-      overflow: hidden;
-   }
+      		overflow: hidden;
+   	}
 
 	#img {
 		width: 100%;
-      height: auto;
+      		height: auto;
      
 	}
 
