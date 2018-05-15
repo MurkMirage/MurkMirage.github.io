@@ -30,7 +30,7 @@
 	}
    #box {
       width: 30%;
-      height: 300px;
+      height: auto;
       float: left;
       overflow: hidden;
       Margin: 2px;
