@@ -31,6 +31,8 @@
    #box {
       width: 30%;
       height: auto;
+      float: left;
+      overflow: hide;
    }
 
 	#img {
