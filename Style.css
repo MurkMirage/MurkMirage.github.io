@@ -37,8 +37,11 @@
    }
 
 	#img {
-	  	width:  auto;
-     height: 100%;
+	  	Float: Left;
+		width: 30%;
+		Margin: 10px;
+		border: solid Navy epx;
+		border-radius: 20px;
      
 	}
 
