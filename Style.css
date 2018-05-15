@@ -38,11 +38,12 @@
 
 	#img {
 	  	Float: Left;
-		width: 30%;
-      height: auto;
+		width: 200px;
+      height: 200px;
 		Margin: 3px;
 		border: solid Navy 3px;
 		border-radius: 15px;
+      overflow: hidden;
      
 	}
 
