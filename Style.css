@@ -29,8 +29,8 @@
 		width: 100%;
 	}
    #box {
-      width: 500px;
-      height: 500px;
+      width: auto;
+      height: auto;
       float: left;
       overflow: hidden;
       Margin: 2px;
@@ -38,9 +38,10 @@
 
 	#img {
 	  	Float: Left;
-		width: 30%;
+		width: 250px;
+      height: 250px;
 		Margin: 10px;
-		border: solid Navy epx;
+		border: solid Navy 3px;
 		border-radius: 20px;
      
 	}
