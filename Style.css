@@ -33,12 +33,13 @@
       height: auto;
       float: left;
       overflow: hidden;
+      Margin: 2px;
    }
 
 	#img {
 	  	width:  30%;
      height: 30%;
-      Margin: 2px;
+     
 	}
 
 	#imgR {
