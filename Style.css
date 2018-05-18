@@ -18,6 +18,12 @@
 		background-color: white;
 		overflow: hidden;
 	}
+	#content2 {
+		Margin: 0% 5%;
+		background-color: white;
+		overflow: hidden;
+		content: center;
+	}
 
 	h1 {
 		text-align: center;
